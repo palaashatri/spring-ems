@@ -10,7 +10,7 @@ Employee Management System built with Spring Boot, Thymeleaf and MySQL
 ```
 git clone https://github.com/palaashatri/spring-ems
 ```
-2. Change the following values inside `ems/src/main/resources/` according to your system configuration:
+2. Change the following values inside `ems/src/main/resources/application.properties` according to your system configuration:
 ```
 spring.datasource.url=jdbc:mysql://${MYSQL_HOST:localhost}:3306/ems
 spring.datasource.username=
