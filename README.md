@@ -1,4 +1,4 @@
-# spring-ems
+# ems
 Employee Management System built with Spring Boot, Thymeleaf and MySQL
 
 ### Requirements
