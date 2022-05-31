@@ -1,0 +1,408 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <!-- Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+
+    <link rel="stylesheet" href="./css/style.css" />
+    <title>EMS</title>
+    <style>
+      html,body{
+        height:100%;
+      }
+    </style>
+    <style>
+      /* Style all input fields */
+      input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        margin-top: 6px;
+        margin-bottom: 16px;
+      }
+      
+      /* Style the submit button */
+      input[type=submit] {
+        background-color: #04AA6D;
+        color: white;
+      }
+      
+      /* Style the container for inputs */
+      .container {
+        background-color: #f1f1f1;
+        padding: 20px;
+      }
+      
+      /* The message box is shown when the user clicks on the password field */
+      #message {
+        display:none;
+        background: #f1f1f1;
+        color: #000;
+        position: relative;
+        padding: 20px;
+        margin-top: 10px;
+      }
+      
+      #message p {
+        padding: 10px 35px;
+        font-size: 18px;
+      }
+      
+      /* Add a green text color and a checkmark when the requirements are right */
+      .valid {
+        color: green;
+      }
+      
+      .valid:before {
+        position: relative;
+        left: -35px;
+        content: "✔";
+      }
+      
+      /* Add a red text color and an "x" when the requirements are wrong */
+      .invalid {
+        color: red;
+      }
+      
+      .invalid:before {
+        position: relative;
+        left: -35px;
+        content: "✖";
+      }
+      </style>
+  </head>
+  
+ 
+  <body>
+    <div class="container-fluid h-100">
+      <div class="row h-100">
+        <!-- start: Sidebar -->
+        <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
+          <div class="sidebar-sticky">
+            <div class="brand text-center p-3">
+              <h4 class="text-muted">Employee Management System</h4>
+            </div>
+            <ul class="nav flex-column pt-3">
+              <li class="nav-item">
+                <a class="nav-link text-light" th:href="@{/admin}">
+                  <span data-feather="home"></span>
+                  Dashboard
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-light" th:href="@{/admin/employees/new}">
+                  <span data-feather="home"></span>
+                  Add Employee
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-light" th:href="@{/admin/employees}" href="#">
+                  <span data-feather="shopping-cart"></span>
+                  View All Employees
+                </a>
+              </li>
+              <!-- <li class="nav-item">
+                <a class="nav-link text-light" href="/pages/loginPage.html">
+                  <span data-feather="file"></span>
+                  Update Employee
+                </a>
+              </li> -->
+              <!-- <li class="nav-item">
+                <a class="nav-link text-light" href="#">
+                  <span data-feather="shopping-cart"></span>
+                  Delete Employee
+                </a>
+              </li> -->
+
+              <li class="nav-item">
+                <a class="nav-link text-light" th:href="@{/admin/attendance}" href="#">
+                  <span data-feather="shopping-cart"></span>
+                  Manage Attendance Requests
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-light" href="/logout">
+                  <span data-feather="layers"></span>
+                  Log Out
+                </a>
+<!-- 
+                <span class="text-muted small d-inline ml-3">
+                  <a class="text-muted" th:href="@{/loginPage}" href="#">Login</a> |
+                  <a class="text-muted" th:href="@{/signupPage}" href="#">                  
+                    Sign Up</a
+                  >
+                </span> -->
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+        <!-- end: Sidebar -->
+
+        <!-- start: Content -->
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+          <!-- start: Title -->
+          <div
+            class="
+              d-flex
+              justify-content-between
+              flex-wrap flex-md-nowrap
+              align-items-center
+              mb-5
+              border-bottom
+            "
+          >
+            <h1 class="h3">Add new employee</h1>
+          </div>
+          <!-- end: Title -->
+          <!-- start: Form -->
+          <div class="card">
+            <div class="card-body">
+				<form action="#" th:action="@{/saveEmployee}" th:object="${employee}"
+				method="POST" enctype="multipart/form-data">
+				<!-- <input type="number" th:field="*{empId}"
+					placeholder="Id" class="form-control mb-4 col-4"> -->
+					<div class="form-group">
+						<b>First Name</b>
+						<input
+						type="text"
+						th:field="*{firstName}"
+						class="form-control"
+            required="required">
+					</div>
+						<!--Last name-->
+						<div class="form-group">
+							<b>Last Name</b>
+							<input
+							type="text"
+							th:field="*{lastName}"
+							class="form-control"
+              required="required">
+
+					</div>
+					<!--user name-->
+						<div class="form-group">
+							<b>User Name</b>
+							<input
+							type="text" th:field="*{userName}"
+							class="form-control"
+              required="required">
+
+					</div>
+
+					<!--password name-->
+					<div class="form-group">
+						<b>Password </b>
+						<input
+						type="password" th:field="*{password}"
+						class="form-control"
+            id="psw" name="psw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required="required"
+            >
+
+				</div>
+        <div id="message" class="form-control "  >
+          <h5>Password must contain the following:</h5>
+          <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+          <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+          <p id="number" class="invalid">A <b>number</b></p>
+          <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+        </div>
+					
+				<!--role name-->
+				<div class="form-group" >
+					<b>Role </b>
+					<!-- <input
+					type="text" th:field="*{role}"
+					class="form-control"> -->
+
+          <select  class="form-control" name="role">
+            <option 
+            th:each = "role : ${rolesList}"
+            th:text="${role}"
+
+            />
+
+          </select>
+
+
+
+         </select>
+         
+			</div>
+				
+				<!--Doj name-->
+				<div class="form-group">
+					<b>Date of Joining </b>
+					<input
+					type="date" th:value="*{dateOfJoining}" th:field="*{dateOfJoining}"
+					class="form-control" required="required">
+
+			</div>
+				
+				<!--Dob name-->
+				<div class="form-group">
+					<b>Date of Birth </b>
+					<input
+					type="date" th:value="*{dateOfBirth}"  th:field="*{dateOfBirth}" 
+					class="form-control" required="required">
+
+			</div>
+				
+				<!--Gender name-->
+				<div class="form-group">
+					<b>Gender </b>
+					<input
+					type="text" th:field="*{gender}"
+					class="form-control" required="required">
+
+			</div>
+				
+				<!--Dept num-->
+				<div class="form-group">
+					<b>Department Id </b>
+					<input
+					type="number" th:field="*{departmentId}"
+					class="form-control" required="required" >
+
+			</div>
+				
+			
+				<!--Pic -->
+				<div class="form-group">
+					<b>Employee Photo</b> </b>
+					<input
+					type="file" name="fileImage" id="fileImage" accept="image/png, image/jpeg"
+					class="form-control">
+
+			</div>
+				<div class="form-group">
+					<img id="thumbnail" alt="Photo Preview" width="100" height="100" class="rounded-circle"/>
+				</div>
+               
+                <div class="form-group">
+					<button type="submit" class="btn btn-info col-2"> Add Employee</button>
+				</div>
+             
+                
+              </form>
+			  <hr>
+			  <a th:href = "@{/admin/employees}"> Back to Employee List</a>
+            </div>
+          </div>
+          <!-- endL Form -->
+        </main>
+        <!-- end: Content -->
+      </div>
+     
+    </div>
+
+    <!-- Bootstrap -->
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#fileImage').change(function(){
+				showImageThumbnail(this)
+			});
+			
+		});
+		function showImageThumbnail(fileInput){
+			file =fileInput.files[0];
+			reader = new FileReader();
+			reader.onload = function(e){
+				$('#thumbnail').attr('src',e.target.result);
+			};
+			reader.readAsDataURL(file);
+		}
+	
+	</script>
+
+
+<script>
+  var myInput = document.getElementById("psw");
+  var letter = document.getElementById("letter");
+  var capital = document.getElementById("capital");
+  var number = document.getElementById("number");
+  var length = document.getElementById("length");
+  
+  // When the user clicks on the password field, show the message box
+  myInput.onfocus = function() {
+    document.getElementById("message").style.display = "block";
+  }
+  
+  // When the user clicks outside of the password field, hide the message box
+  myInput.onblur = function() {
+    document.getElementById("message").style.display = "none";
+  }
+  
+  // When the user starts to type something inside the password field
+  myInput.onkeyup = function() {
+    // Validate lowercase letters
+    var lowerCaseLetters = /[a-z]/g;
+    if(myInput.value.match(lowerCaseLetters)) {  
+      letter.classList.remove("invalid");
+      letter.classList.add("valid");
+    } else {
+      letter.classList.remove("valid");
+      letter.classList.add("invalid");
+    }
+    
+    // Validate capital letters
+    var upperCaseLetters = /[A-Z]/g;
+    if(myInput.value.match(upperCaseLetters)) {  
+      capital.classList.remove("invalid");
+      capital.classList.add("valid");
+    } else {
+      capital.classList.remove("valid");
+      capital.classList.add("invalid");
+    }
+  
+    // Validate numbers
+    var numbers = /[0-9]/g;
+    if(myInput.value.match(numbers)) {  
+      number.classList.remove("invalid");
+      number.classList.add("valid");
+    } else {
+      number.classList.remove("valid");
+      number.classList.add("invalid");
+    }
+    
+    // Validate length
+    if(myInput.value.length >= 8) {
+      length.classList.remove("invalid");
+      length.classList.add("valid");
+    } else {
+      length.classList.remove("valid");
+      length.classList.add("invalid");
+    }
+  }
+  </script>
+  </body>
+</html>

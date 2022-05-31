@@ -1,0 +1,161 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <!-- Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+
+    <link rel="stylesheet" href="./css/style.css" />
+    <title>EMS</title>
+    <style>
+      html,body{
+        height:100%;
+      }
+    </style>
+  </head>
+  
+ 
+  <body >
+    <div class="container-fluid h-100">
+      <div class="row h-100">
+        <!-- start: Sidebar -->
+        <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
+          <div class="sidebar-sticky">
+            <div class="brand text-center p-3">
+              <h4 class="text-muted">Employee Management System</h4>
+            </div>
+            <ul class="nav flex-column pt-3">
+              <li class="nav-item">
+                <a class="nav-link text-light" th:href="@{/admin}">
+                  <span data-feather="home"></span>
+                  Dashboard
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-light" th:href="@{/admin/employees/new}">
+                  <span data-feather="home"></span>
+                  Add Employee
+                </a>
+              </li>
+              <!-- <li class="nav-item">
+                <a class="nav-link text-light" href="/pages/loginPage.html">
+                  <span data-feather="file"></span>
+                  Update Employee
+                </a>
+              </li> -->
+              <!-- <li class="nav-item">
+                <a class="nav-link text-light" href="#">
+                  <span data-feather="shopping-cart"></span>
+                  Delete Employee
+                </a>
+              </li> -->
+
+              <li class="nav-item">
+                <a class="nav-link text-light" th:href="@{/admin/employees}" href="#">
+                  <span data-feather="shopping-cart"></span>
+                  View All Employees
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-light" th:href="@{/admin/attendance}" href="#">
+                  <span data-feather="shopping-cart"></span>
+                  Manage Attendance Requests
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-light" href="/logout">
+                  <span data-feather="layers"></span>
+                  Log Out
+                </a>
+<!-- 
+                <span class="text-muted small d-inline ml-3">
+                  <a class="text-muted" th:href="@{/loginPage}" href="#">Login</a> |
+                  <a class="text-muted" th:href="@{/signupPage}" href="#">                  
+                    Sign Up</a
+                  >
+                </span> -->
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+        <!-- end: Sidebar -->
+
+        <!-- start: Content -->
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+          <!-- start: Title -->
+          <div
+            class="
+              d-flex
+              justify-content-between
+              flex-wrap flex-md-nowrap
+              align-items-center
+              mb-5
+              border-bottom
+            "
+          >
+            <h1 class="h3">Welcome Admin!</h1>
+          </div>
+          <!-- end: Title -->
+<div class="card">
+
+ <div class="card-body">
+ 
+
+  
+  
+
+ <b>Welcome to Employee Management portal.</b>
+ <hr> 
+ <pre>
+  Here you can:
+  1. Add new Employees
+  2. Set employee active states
+  3. View Employee details
+  4. Update The profile of Employees
+  5. Manage Attendance Requests of Employees.
+
+</pre>
+
+ </div>
+</div>
+
+
+            </div>
+          </div>
+          <!-- endL Form -->
+        </main>
+        <!-- end: Content -->
+      </div>
+     
+    </div>
+
+    <!-- Bootstrap -->
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

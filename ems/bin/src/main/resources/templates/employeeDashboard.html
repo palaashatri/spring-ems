@@ -1,0 +1,193 @@
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <!-- Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+
+    <link rel="stylesheet" href="./css/style.css" />
+    <title>EMS</title>
+    <style>
+      html,body{
+        height:100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid h-100">
+      <div class="row h-100">
+        <!-- start: Sidebar -->
+       <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
+        <div class="sidebar-sticky">
+          <div class="brand text-center p-3">
+            <h4 class="text-muted">Employee Management System</h4>
+          </div>
+          <ul class="nav flex-column pt-3">
+            <li class="nav-item">
+              <a class="nav-link text-light" th:href="@{/employee/{id}/dashboard(id = ${employee.empId})}">
+                <span data-feather="home"></span>
+                Dashboard
+              </a>
+            </li>
+           
+            <!-- <li class="nav-item">
+              <a class="nav-link text-light" href="#">
+                <span data-feather="file"></span>
+                View All Attendances
+              </a>
+            </li>
+            -->
+
+            <li class="nav-item">
+              <a class="nav-link text-light" th:href="@{/employee/{id}/regularise(id=${employee.empId})}">
+                <span data-feather="shopping-cart"></span>
+                Regularise Attendance 
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light" th:href="@{/employee/{id}/attendance(id=${employee.empId})}">View All Attendance</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light" href="/logout">
+                <span data-feather="layers"></span>
+                Log Out
+              </a>
+
+               
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <!-- end: Sidebar -->
+     <!-- start: Content -->
+     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+      <!-- start: Title -->
+      <div class="
+            d-flex
+            justify-content-between
+            flex-wrap flex-md-nowrap
+            align-items-center
+            mb-5
+            border-bottom
+          ">
+        <h1 class="h3">Add Employee</h1>
+      </div>
+      <!-- end: Title -->
+      <!-- start: Form -->
+      <div class="profile card p-5">
+        <div class="row">
+          <div class="col-3 text-center">
+            <img th:src="@{${employee.photoImagePath}}"  width="200px" class="rounded" alt="avatar">
+          </div>
+
+          <div class="col-9">
+            <div class="row border-bottom pb-3">
+              <div class="d-inline-flex align-items-baseline ">
+                <h1> <span th:text=${employee.userName}></span></h1>
+                
+                <small class=" px-4"><span th:text=${employee.role}></span></small>
+              </div>
+            </div>
+
+            <div class="profile-info border-bottom py-3">
+              <div class="form-group row">
+                <label for="staticEmail" class="col-sm-2 col-form-label">Username</label>
+                <div class="col-sm-10">
+                  <input type="text" readonly class="form-control-plaintext" id="staticEmail"
+                  th:value=${employee.userName}>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="staticEmail" class="col-sm-2 col-form-label">First Name</label>
+                <div class="col-sm-10">
+                  <input type="text" readonly class="form-control-plaintext" id="staticEmail"  th:value=${employee.firstName}>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="staticEmail" class="col-sm-2 col-form-label">Last Name</label>
+                <div class="col-sm-10">
+                  <input type="text" readonly class="form-control-plaintext" id="staticEmail"  th:value=${employee.lastName}>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="staticEmail" class="col-sm-2 col-form-label">Gender</label>
+                <div class="col-sm-10">
+                  <input type="text" readonly class="form-control-plaintext" id="staticEmail" th:value=${employee.gender}>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="staticEmail" class="col-sm-2 col-form-label">Date of Joining</label>
+                <div class="col-sm-10">
+                  <input type="text" readonly class="form-control-plaintext" id="staticEmail" th:value=${employee.dateOfJoining}>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="staticEmail" class="col-sm-2 col-form-label">Date of Birth</label>
+                <div class="col-sm-10">
+                  <input type="text" readonly class="form-control-plaintext" id="staticEmail" th:value=${employee.dateOfBirth}>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="staticEmail" class="col-sm-2 col-form-label">Department Id</label>
+                <div class="col-sm-10">
+                  <input type="text" readonly class="form-control-plaintext" id="staticEmail" th:value=${employee.departmentId}>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="staticEmail" class="col-sm-2 col-form-label">Employee Id</label>
+                <div class="col-sm-10">
+                  <input type="text" readonly class="form-control-plaintext" id="staticEmail"  th:value=${employee.empId}>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="staticEmail" class="col-sm-2 col-form-label">Is Active</label>
+                <div class="col-sm-10">
+                  <input type="text" readonly class="form-control-plaintext" id="staticEmail" th:value=${employee.isActive}>
+                </div>
+              </div>
+            </div>
+            <div class="update-btn py-3">
+              <a href="#" th:href="@{/employee/{id}/update(id = ${employee.empId})}" class="btn btn-primary">
+                Update Profile
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- endL Form -->
+    </main>
+   
+      </div>
+    </div>
+
+    <!-- Bootstrap -->
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

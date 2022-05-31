@@ -1,0 +1,30 @@
+@charset "ISO-8859-1";
+html,
+body {
+  background-color: #f7f8fc;
+}
+
+/* Sidebar */
+.sidebar {
+  height: 100vh;
+}
+
+.bg-dark-2 {
+  background-color: #363740 !important;
+}
+
+.sidebar .nav li:last-child {
+  position: absolute;
+  bottom: 0;
+  padding-bottom: 24px;
+}
+
+/* Login */
+.center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
