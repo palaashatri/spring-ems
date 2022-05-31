@@ -46,7 +46,7 @@ public class EmployeeController {
 
 	}
 
-		
+
 	@Autowired
 	AttendanceDaoService attendance_service;
 	@Autowired
@@ -59,26 +59,21 @@ public class EmployeeController {
 	// =========admin routes=============
 
 	// show all employees
-    @GetMapping("/admin/employees") 
+	@GetMapping("/admin/employees") 
 
-    	public String viewHomePage(Model model)
-    	{
-			// shows employee repository. distributes employees into 2 tables > active and inactive
-    		model.addAttribute("listEmployees",employeeService.getAllEmployees());
-    		System.out.print(employeeService.getAllEmployees());
-			return findPaginated(1, model);
-    	}
-
-		// @GetMapping("/")
-		// public String viewHomePage(Model model) {
-		//  return findPaginated(1, model);  
-		// }
+	public String viewHomePage(Model model)
+	{
+		// shows employee repository. distributes employees into 2 tables > active and inactive
+		model.addAttribute("listEmployees",employeeService.getAllEmployees());
+		System.out.print(employeeService.getAllEmployees());
+		return findPaginated(1, model);
+	}
 
 
 	// create new employee
-     @GetMapping("/admin/employees/new")
-	 public String showNewEmployeeForm(Model model) {
-		 // create new employee
+	@GetMapping("/admin/employees/new")
+	public String showNewEmployeeForm(Model model) {
+		// create new employee
 		// create model attribute to bind form data
 
 		Employee employee = new Employee();
@@ -88,7 +83,7 @@ public class EmployeeController {
 	}
 
 	// new employee post
-    @PostMapping("/saveEmployee")
+	@PostMapping("/saveEmployee")
 	public String saveEmployee(@ModelAttribute("employee") Employee employee,@RequestParam("fileImage") MultipartFile multipartFile) throws IOException {
 		//save employee to db
 		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
@@ -97,19 +92,19 @@ public class EmployeeController {
 		String uploadDir ="./employee-photos/" + savedEmployee.getEmpId();
 
 		Path uploadPath = Paths.get(uploadDir);
-	
+
 		if(!Files.exists(uploadPath)){
-		Files.createDirectories(uploadPath);
-		
+			Files.createDirectories(uploadPath);
+
 		}
-	
+
 		try(InputStream inputStream =multipartFile.getInputStream()){
-		Path filePath=uploadPath.resolve(fileName);
-		System.out.println(filePath.toFile().getAbsolutePath());
-		Files.copy(inputStream,filePath, StandardCopyOption.REPLACE_EXISTING);
+			Path filePath=uploadPath.resolve(fileName);
+			System.out.println(filePath.toFile().getAbsolutePath());
+			Files.copy(inputStream,filePath, StandardCopyOption.REPLACE_EXISTING);
 		}
 		catch(IOException e) {
-		throw new IOException("Could not save uploaded file: "+ fileName);
+			throw new IOException("Could not save uploaded file: "+ fileName);
 		}
 		return "redirect:/admin/employees";
 	}
@@ -120,19 +115,15 @@ public class EmployeeController {
 	public String employeeProfile(@PathVariable(value = "id")int id, Model model){
 		Employee employee = employeeService.getEmployeeById(id);
 		model.addAttribute("employee", employee);
-		
-		
 		return "employee_profile";
 	}
 
 	// update employee details
 	@GetMapping("/admin/employees/{id}/update")
 	public String showFormForUpdate(@PathVariable ( value = "id") int id, Model model) {
-		
+
 		// fetch employee data from db, put them into form and update them into form
 		Employee employee = employeeService.getEmployeeById(id);
-		
-		
 		model.addAttribute("rolesList",rolesList);
 		model.addAttribute("employee", employee);
 		return "update_employee";
@@ -144,42 +135,36 @@ public class EmployeeController {
 		try{
 			//getting old employee details
 			Employee oldEmployee=employeeService.getEmployeeById(employee.getEmpId());
-			//System.out.println("Old Employee Details:"+oldEmployee.getFirstName()+oldEmployee.getPhoto());
-			
 
 			//image
 			if(!multipartFile.isEmpty()){
-					//file work
-					//rewrite
-					String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-					employee.setPhoto(fileName);
-					Employee savedEmployee= employeeService.saveEmployee(employee);
-					String uploadDir ="./employee-photos/" + savedEmployee.getEmpId();
-			
-					Path uploadPath = Paths.get(uploadDir);
-				
-					if(!Files.exists(uploadPath)){
+				//file work
+				//rewrite
+				String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+				employee.setPhoto(fileName);
+				Employee savedEmployee= employeeService.saveEmployee(employee);
+				String uploadDir ="./employee-photos/" + savedEmployee.getEmpId();
+
+				Path uploadPath = Paths.get(uploadDir);
+
+				if(!Files.exists(uploadPath)){
 					Files.createDirectories(uploadPath);
-					
-					}
-				
-					try(InputStream inputStream =multipartFile.getInputStream()){
+
+				}
+
+				try(InputStream inputStream =multipartFile.getInputStream()){
 					Path filePath=uploadPath.resolve(fileName);
 					System.out.println(filePath);
 					System.out.println(filePath.toFile().getAbsolutePath());
 					System.out.println("above is path");
 					Files.copy(inputStream,filePath, StandardCopyOption.REPLACE_EXISTING);
-					}
-					catch(IOException e) {
+				}
+				catch(IOException e) {
 					throw new IOException("Could not save uploaded file: "+ fileName);
-					}
-				
-
-
+				}
 			}
 			else{
 				employee.setPhoto(oldEmployee.getPhoto());
-
 			}
 			employeeService.saveEmployee(employee);
 
@@ -202,7 +187,7 @@ public class EmployeeController {
 		employeeService.saveEmployee(employee);
 		return "redirect:/admin/employees";
 	}
-	
+
 	// set active employee
 	@GetMapping("/admin/employees/{id}/setActive")
 	public String setActive(@PathVariable(value = "id") int id){
@@ -213,78 +198,73 @@ public class EmployeeController {
 		employeeService.saveEmployee(employee);
 		return "redirect:/admin/employees";
 	}
-// ========attendance dashboard===========
-@GetMapping("/admin/attendance") 
-public String attendance(Model model)
-{
-	model.addAttribute("listAttendance",attendance_service.getAllAttendance());
-	System.out.print(attendance_service.getAllAttendance());
-	  return "attendance";
-}
+	// ========attendance dashboard===========
+	@GetMapping("/admin/attendance") 
+	public String attendance(Model model)
+	{
+		model.addAttribute("listAttendance",attendance_service.getAllAttendance());
+		System.out.print(attendance_service.getAllAttendance());
+		return "attendance";
+	}
 
 
-@GetMapping("/admin/attendance/new")
-public String newAttendanceForm(Model model){
-	Attendance attendance = new Attendance();
-	model.addAttribute("attendance", attendance);
-	return "new_attendance";
-}
-@PostMapping("/saveAttendance")
-public String saveAttendance(@ModelAttribute("attendance") Attendance attendance)  {
-  //save attendance to db  
-  Attendance savedAttendance= attendance_service.insertAttendance(attendance);
-  return "redirect:/admin/attendance/new";
-}
+	@GetMapping("/admin/attendance/new")
+	public String newAttendanceForm(Model model){
+		Attendance attendance = new Attendance();
+		model.addAttribute("attendance", attendance);
+		return "new_attendance";
+	}
+	@PostMapping("/saveAttendance")
+	public String saveAttendance(@ModelAttribute("attendance") Attendance attendance)  {
+		//save attendance to db  
+		Attendance savedAttendance= attendance_service.insertAttendance(attendance);
+		return "redirect:/admin/attendance/new";
+	}
 
-@GetMapping("/admin/attendance/{id}/accept")
-public String acceptAttendance(@PathVariable(value = "id") int id)
-{
-  Attendance attendance=attendance_service.getAttendanceById(id);
-  attendance.setStatus("Approved");
-  attendance_service.updateAttendance(attendance);
-  return "redirect:/admin/attendance";
-
-
-}
+	@GetMapping("/admin/attendance/{id}/accept")
+	public String acceptAttendance(@PathVariable(value = "id") int id)
+	{
+		Attendance attendance=attendance_service.getAttendanceById(id);
+		attendance.setStatus("Approved");
+		attendance_service.updateAttendance(attendance);
+		return "redirect:/admin/attendance";
 
 
-@GetMapping("/admin/attendance/{id}/reject")
-public String rejectAttendance(@PathVariable(value = "id") int id)
-{
-  Attendance attendance=attendance_service.getAttendanceById(id);
-  attendance.setStatus("Rejected");
-  attendance_service.updateAttendance(attendance);
-  return "redirect:/admin/attendance";
+	}
+
+	@GetMapping("/admin/attendance/{id}/reject")
+	public String rejectAttendance(@PathVariable(value = "id") int id)
+	{
+		Attendance attendance=attendance_service.getAttendanceById(id);
+		attendance.setStatus("Rejected");
+		attendance_service.updateAttendance(attendance);
+		return "redirect:/admin/attendance";
+	}
 
 
-}
 
-	
-
-//===============Employee routes====================
-// view employee dashboard
-@GetMapping("/employee/{id}/dashboard")
+	//===============Employee routes====================
+	// view employee dashboard
+	@GetMapping("/employee/{id}/dashboard")
 	public String employeeDashboard(@PathVariable(value = "id")int id, Model model){
 		Employee employee = employeeService.getEmployeeById(id);
 		model.addAttribute("employee", employee);
 		return "employeeDashboard";
 	}
-	
 
-//update employee from dashboard
-@GetMapping("/employee/{id}/update")
-public String updateEmpDashboard(@PathVariable ( value = "id") int id, Model model) {
-	
-	// fetch employee data from db, put them into form and update them into form
-	Employee employee = employeeService.getEmployeeById(id);
-	
-	
-	model.addAttribute("rolesList",rolesList);
-	model.addAttribute("employee", employee);
-	return "update_employee_dashboard";
-}
 
-//Emp update
+	//update employee from dashboard
+	@GetMapping("/employee/{id}/update")
+	public String updateEmpDashboard(@PathVariable ( value = "id") int id, Model model) {
+
+		// fetch employee data from db, put them into form and update them into form
+		Employee employee = employeeService.getEmployeeById(id);
+		model.addAttribute("rolesList",rolesList);
+		model.addAttribute("employee", employee);
+		return "update_employee_dashboard";
+	}
+
+	//Emp update
 
 	//update employee handler from dashboard
 	@PostMapping("/updateEmployeeDashboard")
@@ -293,42 +273,35 @@ public String updateEmpDashboard(@PathVariable ( value = "id") int id, Model mod
 		try{
 			//getting old employee details
 			Employee oldEmployee=employeeService.getEmployeeById(employee.getEmpId());
-			//System.out.println("Old Employee Details:"+oldEmployee.getFirstName()+oldEmployee.getPhoto());
 			
-
 			//image
 			if(!multipartFile.isEmpty()){
-					//file work
-					//rewrite
-					String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-					employee.setPhoto(fileName);
-					Employee savedEmployee= employeeService.saveEmployee(employee);
-					String uploadDir ="./employee-photos/" + savedEmployee.getEmpId();
-			
-					Path uploadPath = Paths.get(uploadDir);
-				
-					if(!Files.exists(uploadPath)){
+				//file work
+				//rewrite
+				String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+				employee.setPhoto(fileName);
+				Employee savedEmployee= employeeService.saveEmployee(employee);
+				String uploadDir ="./employee-photos/" + savedEmployee.getEmpId();
+
+				Path uploadPath = Paths.get(uploadDir);
+
+				if(!Files.exists(uploadPath)){
 					Files.createDirectories(uploadPath);
-					
-					}
-				
-					try(InputStream inputStream =multipartFile.getInputStream()){
+				}
+
+				try(InputStream inputStream =multipartFile.getInputStream()){
 					Path filePath=uploadPath.resolve(fileName);
 					System.out.println(filePath);
 					System.out.println(filePath.toFile().getAbsolutePath());
 					System.out.println("above is path");
 					Files.copy(inputStream,filePath, StandardCopyOption.REPLACE_EXISTING);
-					}
-					catch(IOException e) {
+				}
+				catch(IOException e) {
 					throw new IOException("Could not save uploaded file: "+ fileName);
-					}
-				
-
-
+				}
 			}
 			else{
 				employee.setPhoto(oldEmployee.getPhoto());
-
 			}
 			employeeService.saveEmployee(employee);
 
@@ -341,46 +314,18 @@ public String updateEmpDashboard(@PathVariable ( value = "id") int id, Model mod
 		return "redirect:/employee/"+employee.getEmpId()+"/dashboard";
 	}
 
-
-
-
-
-
-	
-	// @GetMapping("/signupPage")
-	// public String signupPage(Model model){
-		
-	// 	return "signupPage";
-	// }
-	
-	// @GetMapping("/loginPage")
-	// public String loginPage(Model model){
-		
-	// 	return "loginPage";
-	// }
-
-	
-
 	@GetMapping("/employeeDashboard")
 	public String employeeDashboard(Model model){
-		
+
 		return "employeeDashboard";
 	}
-
-
-
-	// @GetMapping("/regulariseAttendance")
-	// public String regulariseAttendance(Model model){
-		
-	// 	return "regulariseAttendance";
-	// }
 
 	@GetMapping("/employee/{id}/regularise")
 	public String regulariseAttendance(@PathVariable (value = "id") int id, Model model){
 		Employee employee = employeeService.getEmployeeById(id);
 		model.addAttribute("employee", employee);
 		Attendance attendance = new Attendance();
-	model.addAttribute("attendance", attendance);
+		model.addAttribute("attendance", attendance);
 		return "regulariseAttendance";
 	}
 
@@ -392,44 +337,28 @@ public String updateEmpDashboard(@PathVariable ( value = "id") int id, Model mod
 		return "viewAllRequests";
 	}
 
-
-
-
-
 	@PostMapping("/saveAttendanceDashboard")
 	public String saveAttendanceDashboard(@ModelAttribute("attendance") Attendance attendance)  {
-	  //save attendance to db  
-	  Attendance savedAttendance= attendance_service.insertAttendance(attendance);
-	  return "redirect:/employee/"+savedAttendance.getEmpId()+"/attendance";
+		//save attendance to db  
+		Attendance savedAttendance= attendance_service.insertAttendance(attendance);
+		return "redirect:/employee/"+savedAttendance.getEmpId()+"/attendance";
 	}
 
-
-
-
-	// public String setActive(@PathVariable(value = "id") int id){
-
-	// 	// set employee state as inactive
-	// 	Employee employee = employeeService.getEmployeeById(id);
-	// 	employee.setIsActive("true");
-	// 	employeeService.saveEmployee(employee);
-	// 	return "redirect:/employees";
-	// }
-	
 	//Pagination
 
 	@GetMapping("/page/{pageNo}")
-public String findPaginated(@PathVariable(value = "pageNo") int pageNo, Model model) {
-    int pageSize = 5;
+	public String findPaginated(@PathVariable(value = "pageNo") int pageNo, Model model) {
+		int pageSize = 5;
 
-    Page < Employee > page = employeeService.findPaginated(pageNo, pageSize);
-    List < Employee > listEmployees = page.getContent();
+		Page < Employee > page = employeeService.findPaginated(pageNo, pageSize);
+		List < Employee > listEmployees = page.getContent();
 
-    model.addAttribute("currentPage", pageNo);
-    model.addAttribute("totalPages", page.getTotalPages());
-    model.addAttribute("totalItems", page.getTotalElements());
-    model.addAttribute("listEmployees", listEmployees);
-    return "employees";
+		model.addAttribute("currentPage", pageNo);
+		model.addAttribute("totalPages", page.getTotalPages());
+		model.addAttribute("totalItems", page.getTotalElements());
+		model.addAttribute("listEmployees", listEmployees);
+		return "employees";
+	}
+
+
 }
-
-
-    }

@@ -8,8 +8,5 @@ import com.example.project.ems.model.Employee;
 
 @Repository
 public interface EmployeeDao extends JpaRepository<Employee,Integer> {
-    public Employee findByUsernameAndPassword(String username, String password);
-  //  boolean existsEmployeeByUsername(String username);
-   
-    
+    public Employee findByUsernameAndPassword(String username, String password);    
 }

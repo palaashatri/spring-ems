@@ -18,49 +18,49 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RestController
 public class EmsController {
 	@Autowired
-		EmployeeService emp;
-		String username;
-		String password;
+	EmployeeService emp;
+	String username;
+	String password;
 
-		
-		@RequestMapping("/")
-		public ModelAndView Login() {
+
+	@RequestMapping("/")
+	public ModelAndView Login() {
+		return new ModelAndView("loginPage");
+	}
+
+	@RequestMapping(value = "login", method = RequestMethod.POST)
+	public ModelAndView LoginAuth(HttpServletRequest request) {
+		username = request.getParameter("usrname");
+		password = request.getParameter("psw");
+		Employee theEmployee = emp.findByUsernameAndPassword(username, password);
+		if (theEmployee == null) {
+
+
 			return new ModelAndView("loginPage");
+		} else if(theEmployee.getRole().equals("ADMIN")) {
+
+			return new ModelAndView("redirect:/admin");
+
 		}
+		else if(theEmployee.getRole().equals("admin")) {
 
-		@RequestMapping(value = "login", method = RequestMethod.POST)
-		public ModelAndView LoginAuth(HttpServletRequest request) {
-			username = request.getParameter("usrname");
-			password = request.getParameter("psw");
-			Employee theEmployee = emp.findByUsernameAndPassword(username, password);
-	if (theEmployee == null) {
-				
-
-				return new ModelAndView("loginPage");
-			} else if(theEmployee.getRole().equals("ADMIN")) {
-
-				return new ModelAndView("redirect:/admin");
-
-			}
-			else if(theEmployee.getRole().equals("admin")) {
-
-				return new ModelAndView("redirect:/admin");
-
-			}
-
-			else if(theEmployee.getRole().equals("Admin")) {
-
-				return new ModelAndView("redirect:/admin");
-
-			}
-			else
-			{   
-				return new ModelAndView("redirect:/employee/"+theEmployee.getEmpId()+"/dashboard");
-			}
+			return new ModelAndView("redirect:/admin");
 
 		}
 
-    @RequestMapping("/admin")
+		else if(theEmployee.getRole().equals("Admin")) {
+
+			return new ModelAndView("redirect:/admin");
+
+		}
+		else
+		{   
+			return new ModelAndView("redirect:/employee/"+theEmployee.getEmpId()+"/dashboard");
+		}
+
+	}
+
+	@RequestMapping("/admin")
 	public ModelAndView m1()
 	{
 		return new ModelAndView("admin");
@@ -70,5 +70,5 @@ public class EmsController {
 	public ModelAndView m3(){
 		return new ModelAndView("redirect:/");
 	}
-    
+
 }

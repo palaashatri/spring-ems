@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-
 //path="./employee-photos/"
 @Configuration
 public class MvcConfig implements WebMvcConfigurer{
@@ -16,11 +15,6 @@ public class MvcConfig implements WebMvcConfigurer{
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
         Path employeeUploadDir=Paths.get("./employee-photos");
 		String employeeUploadPath=employeeUploadDir.toFile().getAbsolutePath();
-		registry.addResourceHandler("/employee-photos/**").addResourceLocations("file:/"+employeeUploadPath+"/");
-		
-    
-    }
-
-    
-    
+		registry.addResourceHandler("/employee-photos/**").addResourceLocations("file:/"+employeeUploadPath+"/");    
+    }    
 }

@@ -11,26 +11,26 @@ import com.example.project.ems.model.Department;
 @Service
 public class DepartmentDaoService {
 
-    @Autowired
-    DepartmentDao departmentDao;
-    
-    public Department insertDepartment(Department department){
-        return departmentDao.save(department);
-    }
+	@Autowired
+	DepartmentDao departmentDao;
 
-    public Department updateDepartment(Department department){
-        return departmentDao.save(department);
-    }
+	public Department insertDepartment(Department department){
+		return departmentDao.save(department);
+	}
 
-    public List<Department> getAllDepartments(){
-        return departmentDao.findAll();
-    }
+	public Department updateDepartment(Department department){
+		return departmentDao.save(department);
+	}
 
-    public Department getDepartmentById(int id){
-        return departmentDao.getById(id);
-    }
+	public List<Department> getAllDepartments(){
+		return departmentDao.findAll();
+	}
 
-    public void deleteById(int id){
-        departmentDao.deleteById(id);
-    }
+	public Department getDepartmentById(int id){
+		return departmentDao.getById(id);
+	}
+
+	public void deleteById(int id){
+		departmentDao.deleteById(id);
+	}
 }
